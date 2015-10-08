@@ -1,0 +1,232 @@
+import java.util.*;
+/* 
+*CMPS 12A HW 5*
+
+Code generator game program!
+
+The computer generates a random code, and prompts the user for a code guess input. 
+The computer then compares that guess to the randomly generated code, and prints out the number of exact matches and close matches.
+Exact matches are characterized by the same number and location, close matches are the same number but in different locations.
+
+*/
+
+public class Mastermind
+{
+	public static void main (String [] args)
+	{
+
+		Scanner scan = new Scanner(System.in);
+		//scanner
+		Random rnd = new Random();
+		//randomizer
+		char randomcode1 = (char)(rnd.nextInt(10) + '0');
+		char randomcode2 = (char)(rnd.nextInt(10) + '0');
+		char randomcode3 = (char)(rnd.nextInt(10) + '0');
+		char randomcode4 = (char)(rnd.nextInt(10) + '0');
+		//generating a random code
+		
+
+
+	
+	 	while (true) //infinite loop
+	 	{		
+		 	System.out.print(" Please enter your 4 digit code guess: ");
+			//prompts user for input
+			
+			int close = 0, exact = 0;
+			//reset close and exact every time
+			
+			String input = scan.next();
+			//scans for next string input by the user
+			
+			char used1 = 'A', used2 = 'B', used3 = 'C', used4 = 'D';
+			//variables will be used to eliminate numbers as they're used.
+			
+			char inputcode1 = input.charAt(0); 
+			//checking for a first character
+			
+			char temp1 = randomcode1, temp2 = randomcode2, temp3 = randomcode3, temp4 = randomcode4;
+			//creating temp variables to hold the random code so we can reset the code back after computing exact and close
+			
+			
+	 		if (inputcode1 == '*') 
+			//checking the first input for cheat code option
+	 		{
+	 			System.out.format(" *CHEAT CODE* The number is %c%c%c%c \n\n", randomcode1, randomcode2, randomcode3, randomcode4);
+				//displaying the generated random code
+	 		} else 
+				//the rest of the program, exact and close matches and winning or losing happens whenever cheat code isnt entered
+			{
+				
+			char inputcode2 = input.charAt(1);
+			char inputcode3 = input.charAt(2);
+			char inputcode4 = input.charAt(3);
+			//checking the value of the other 3 inputs
+		
+			/*
+				And now we comput exact matches
+				
+				INCOMING IF STATEMENTS
+			*/
+			
+			
+				if (inputcode1 == randomcode1) 
+					//if the number inputted is the same and is in the same location as the random number
+				{
+					exact++; //increase exact
+					randomcode1 = used1; //change input to used
+					inputcode1 = used1; //change code to used
+				} 
+				
+				if (inputcode2 == randomcode2)
+				//if the number inputted is the same and is in the same location as the random number
+				{
+					exact++; //incease exact
+					inputcode2 = used2; //change input to used
+					randomcode2 = used2; //changed code to used
+				}
+				
+				
+				if (inputcode3 == randomcode3)
+					//if the number inputted is the same and is in the same location as the random number
+				{
+					exact++; //increase exact
+					inputcode3 = used3; //change input to use
+					randomcode3 = used3; //change code to used
+				} 
+
+				
+				if (inputcode4 == randomcode4)
+					//if the number inputted is the same and is in the same location as the random number
+				{
+					exact++; //increase exact
+					inputcode4 = used4; //change input to used
+					randomcode4 = used4; //change code to used
+				}
+				
+				/*
+					And now we compute close matches
+					
+					INCOMING TONS OF IF STATEMENTS
+					
+				*/
+				
+				if(inputcode2 == randomcode1)
+						//if the first random character is the same as the second, third, or fourth input characters
+				{
+					close ++; //increase close
+					randomcode1 = used1; //set place 1 in code to used
+					inputcode2 = used2;
+				}
+				
+				if(inputcode3 == randomcode1)
+				{
+					close++; //increase close
+					randomcode1 = used1; //set place 1 in code to used
+					inputcode3 = used3;
+					
+				}
+				
+				if(inputcode4 == randomcode1)
+				{
+					close++;
+					randomcode1 = used1;
+					inputcode4 = used4;
+				}
+				
+				
+				
+				if(inputcode1 == randomcode2)
+					//if the second random character is the same as the first, third, or fourth input characters
+				{
+					close ++; //increase close
+					randomcode2 = used2; //set place 2 in code to used
+					inputcode1 = used1;
+				}
+				
+				if(inputcode4 == randomcode2)
+				{
+					close ++; //increase close
+					randomcode2 = used2; //set place 2 in code to used
+					inputcode4 = used4;	
+				}
+				
+				if(inputcode3 == randomcode2)
+				{
+					close ++; //increase close
+					randomcode2 = used2; //set place 2 in code to used
+					inputcode3 = used3;	
+				}
+				
+				if(inputcode1 == randomcode3)
+					//if the third random character is the same as the first, second, or fourth input characters
+				{
+					close++; //increase close
+					randomcode3 = used3; //set place 3 in code to used
+					inputcode1 = used1; 
+				}
+				
+				if(inputcode4 == randomcode3)
+				{
+					close++; //increase close
+					randomcode3 = used3; //set place 3 in code to used
+					inputcode4 = used4;
+				}
+				
+				if(inputcode2 == randomcode3)
+				{
+					close++; //increase close
+					randomcode3 = used3; //set place 3 in code to used
+					inputcode2 = used2;
+				}
+				
+				
+				if (inputcode1 == randomcode4)
+					//if the first random character is the same as the first, second, or third, input characters
+				{
+					close++; //increase close
+					randomcode4 = used4; //set place 4 in code to used
+					inputcode1 = used1;
+				}
+				
+				if(inputcode3 == randomcode4){
+					close++; //increase close
+					randomcode4 = used4; //set place 4 in code to used
+					inputcode3 = used3;
+				}
+				
+				if(inputcode2 == randomcode4)
+				{
+					close++; //increase close
+					randomcode4 = used4; //set place 4 in code to used
+					inputcode2 = used2;
+				}
+				
+				
+				
+				
+
+				if (exact == 4) 
+					//if all 4 numbers are correct
+				{
+					System.out.println( " Good job, all four numbers are correct! You won! "); 
+					//win message
+					System.exit(0);
+					//ends program
+			
+				} else {
+					randomcode1 = temp1;
+					randomcode2 = temp2;
+					randomcode3 = temp3;
+					randomcode4 = temp4;
+					//resetting the secret code back the original values since the user didn't win
+					
+			System.out.format( "You had %d close numbers and %d exact numbers \n\n", close, exact);
+			//if user did not win, display number of close and exact matches.
+						}
+					
+			}
+		}
+		
+	}
+}
